@@ -36,26 +36,22 @@
 // 👍 4556 👎 194
 
 
+import java.util.Arrays;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int jump(int[] nums) {
-        int length = nums.length -1;
-        int reachable = 0;
-        int[] dp = new int[nums.length+1];
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp,n-1);
         dp[0] = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (reachable < (nums[i] + i) && reachable < nums.length){
-                dp[i+1] = dp[i] +1;
-                reachable = Math.max(reachable,nums[i] + i);
-            }else{
-                dp[i+1] = dp[i];
+        for(int i=0; i<n; i++){
+            int max = Math.min(n-1, i+ nums[i]);
+            for(int j = i+1; j<=max; j++){
+                dp[j] = Math.min(dp[j], dp[i] + 1);
             }
-            if(reachable >= length){
-                return dp[i];
-            }
-
         }
-        return dp[nums.length];
+        return dp[n-1];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
