@@ -39,12 +39,12 @@
 class Solution {
     public boolean canJump(int[] nums) {
         int length = nums.length -1;
-        int start = 0;
-        while (start < length) {
-            if (nums[start] == 0) return false;
-            start = start + nums[start];
+        int reachable = 0;
+        for (int i = 0; i <= length; i++) {
+            if(i > reachable) return false;
+            reachable = Math.max(reachable, nums[i] + i);
         }
-        return start >= length;
+        return reachable >= length;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
